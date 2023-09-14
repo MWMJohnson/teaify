@@ -9,6 +9,6 @@ class Subscription < ApplicationRecord
   validates :tea_unit_size, presence: true
   validates :tea_unit_size, numericality: true
 
-  belongs_to :tea
-  belongs_to :customer
+  belongs_to :tea, optional: true
+  belongs_to :customer, optional: true
 end
