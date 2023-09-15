@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :customers do 
         resources :subscriptions, only: %i[index]
       end
+      post '/customers/:customer_id/teas/:tea_id', to: 'subscriptions#create'
     end
   end
 end

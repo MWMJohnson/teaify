@@ -69,12 +69,12 @@ RSpec.describe 'Recipes' do
 
     describe "sad path" do 
       it "returns an error message if the customer does not exist" do 
-        get api_v1_customer_subscriptions_path(1)
+        get api_v1_customer_subscriptions_path(1909090909090990909009)
         
         expect(response).to_not be_successful
         parsed = JSON.parse(response.body, symbolize_names: true)
         
-        expect(parsed[:error]).to eq "The Customer ID you entered is not valid."
+        expect(parsed[:error]).to eq "Customer not found"
       end
     end
   end

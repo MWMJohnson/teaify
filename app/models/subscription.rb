@@ -2,7 +2,6 @@ class Subscription < ApplicationRecord
   validates :title, presence: true
   validates :price, presence: true
   validates :price, numericality: true
-  validates :status, presence: true
   validates :frequency, presence: true
   validates :tea_units, presence: true
   validates :tea_units, numericality: true
