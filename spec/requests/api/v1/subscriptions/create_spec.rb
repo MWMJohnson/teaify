@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe 'Recipes' do
+RSpec.describe 'Subscriptions' do
   describe 'POST api_v1_customer_subscriptions_path' do 
     describe "happy paths" do
       it "allows a customer to add a tea subscription" do 
         test_data
-        expect(@customer_2.teas.to_a).to eq([@tea_1, @tea_2])
+        expect(@customer_2.teas.to_a).to eq([@tea_2, @tea_1])
         @tea_3 = Tea.create!(title: "Green Tea", description: "soothing", temperature: 185, brew_time_seconds: 300 )
 
         subscription_valid_params = {
@@ -75,10 +75,10 @@ RSpec.describe 'Recipes' do
         expect(attributes[:tea_id]).to be_a Integer
         expect(attributes[:tea_id]).to eq created_subscription.tea_id
       end
-      
+
       it "allows a customer to re-subscribe to a cancelled tea subscription" do 
         test_data
-        expect(@customer_2.teas.to_a).to eq([@tea_1, @tea_2])
+        expect(@customer_2.teas.to_a).to eq([@tea_2, @tea_1])
         @tea_3 = Tea.create!(title: "Green Tea", description: "soothing", temperature: 185, brew_time_seconds: 300 )
 
         subscription_valid_params = {
@@ -117,7 +117,7 @@ RSpec.describe 'Recipes' do
     describe "sad paths" do
       it "Customer can only have one active subscription per tea" do 
         test_data
-        expect(@customer_2.teas.to_a).to eq([@tea_1, @tea_2])
+        expect(@customer_2.teas.to_a).to eq([@tea_2, @tea_1])
         @tea_3 = Tea.create!(title: "Green Tea", description: "soothing", temperature: 185, brew_time_seconds: 300 )
 
         subscription_valid_params = {
@@ -164,7 +164,7 @@ RSpec.describe 'Recipes' do
 
       it "Must be a valid Tea" do 
         test_data
-        expect(@customer_2.teas.to_a).to eq([@tea_1, @tea_2])
+        expect(@customer_2.teas.to_a).to eq([@tea_2, @tea_1])
 
         subscription_valid_params = {
           title: "test title",

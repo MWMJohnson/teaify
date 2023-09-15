@@ -98,6 +98,10 @@ RSpec.configure do |config|
 end
 
 def test_data
+  Subscription.destroy_all
+  Customer.destroy_all
+  Tea.destroy_all
+  
   @customer_1 = Customer.create!(first_name: "Ace", last_name: "Abe", email: "Ace@email.com", address: "1 Ace's pl, Denver, CO 80231")
   @customer_2 = Customer.create!(first_name: "Billy", last_name: "Bob", email: "Billy@email.com", address: "1 Billy's pl, Denver, CO 80231")
 

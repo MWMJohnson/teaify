@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Recipes' do
+RSpec.describe 'Subscriptions' do
   describe 'GET api_v1_customer_subscriptions_path' do 
     describe "happy paths" do
       it "can get a list of a customer's tea subscriptions" do
