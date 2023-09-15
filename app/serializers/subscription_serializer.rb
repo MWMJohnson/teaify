@@ -5,5 +5,7 @@ class SubscriptionSerializer
               :status,
               :frequency,
               :tea_units,
-              :tea_unit_size
+              :tea_unit_size,
+              :customer_id,
+              :tea_id
 end
