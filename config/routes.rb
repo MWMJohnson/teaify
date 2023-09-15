@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :customers do 
         resources :subscriptions, only: %i[index]
+        delete '/subscriptions/:id', to: 'subscriptions#cancel'
       end
       post '/customers/:customer_id/teas/:tea_id', to: 'subscriptions#create'
     end
