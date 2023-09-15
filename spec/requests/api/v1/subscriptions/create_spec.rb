@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Subscriptions' do
-  describe 'POST api_v1_customer_subscriptions_path' do 
+  describe "POST api_v1_customer_subscriptions_path" do 
     describe "happy paths" do
       it "allows a customer to add a tea subscription" do 
         test_data
@@ -18,7 +18,7 @@ RSpec.describe 'Subscriptions' do
         }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
-        post "/api/v1/customers/#{@customer_2.id}/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
+        post api_v1_customer_subscriptions_path(@customer_2), headers: headers, params: JSON.generate(subscription_valid_params)
         
         expect(response).to be_successful
 
@@ -92,12 +92,12 @@ RSpec.describe 'Subscriptions' do
         }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
-        post "/api/v1/customers/#{@customer_2.id}/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
+        post api_v1_customer_subscriptions_path(@customer_2), headers: headers, params: JSON.generate(subscription_valid_params)
         
         created_subscription = Subscription.last
         created_subscription.update!(status: "cancelled")
 
-        post "/api/v1/customers/#{@customer_2.id}/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
+        post api_v1_customer_subscriptions_path(@customer_2), headers: headers, params: JSON.generate(subscription_valid_params)
 
         expect(response).to be_successful
 
@@ -132,8 +132,8 @@ RSpec.describe 'Subscriptions' do
         }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
-        post "/api/v1/customers/#{@customer_2.id}/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
-        post "/api/v1/customers/#{@customer_2.id}/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
+        post api_v1_customer_subscriptions_path(@customer_2), headers: headers, params: JSON.generate(subscription_valid_params)
+        post api_v1_customer_subscriptions_path(@customer_2), headers: headers, params: JSON.generate(subscription_valid_params)
         
         expect(response).to_not be_successful
 
@@ -156,7 +156,7 @@ RSpec.describe 'Subscriptions' do
         }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
-        post "/api/v1/customers/0000/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
+        post api_v1_customer_subscriptions_path(0), headers: headers, params: JSON.generate(subscription_valid_params)
         
         expect(response).to_not be_successful
 
@@ -180,7 +180,7 @@ RSpec.describe 'Subscriptions' do
         }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
-        post "/api/v1/customers/#{@customer_2.id}/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
+        post api_v1_customer_subscriptions_path(@customer_2), headers: headers, params: JSON.generate(subscription_valid_params)
         
         expect(response).to_not be_successful
 

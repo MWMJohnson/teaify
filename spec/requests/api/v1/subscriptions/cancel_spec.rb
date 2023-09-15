@@ -13,7 +13,6 @@ RSpec.describe 'Subscriptions' do
         delete "/api/v1/customers/#{@customer_2.id}/subscriptions/#{@subscription_2.id}", headers: headers
         
         expect(response).to be_successful
-        # require 'pry'; binding.pry
 
         parsed = JSON.parse(response.body, symbolize_names: true)
         expect(parsed).to be_a Hash
@@ -30,10 +29,9 @@ RSpec.describe 'Subscriptions' do
         expect(@subscription_2.status).to eq "active"
         
         headers = { 'CONTENT_TYPE' => 'application/json' }
-        delete "/api/v1/customers/#{@customer_2.id}/subscriptions/9090909909090909090909090", headers: headers
+        delete "/api/v1/customers/#{@customer_2.id}/subscriptions/000", headers: headers
         
         expect(response).to_not be_successful
-        # require 'pry'; binding.pry
 
         parsed = JSON.parse(response.body, symbolize_names: true)
         expect(parsed).to be_a Hash
