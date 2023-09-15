@@ -5,7 +5,7 @@ class SubscriptionsController < ApplicationController
       subscriptions = customer.subscriptions
       render json: SubscriptionSerializer.new(subscriptions), status: 200
     else
-      render json: { error: "The Customer ID you entered is not valid."}
+      render json: { error: "The Customer ID you entered is not valid."}, status: 404
     end
   end
 end
