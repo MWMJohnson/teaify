@@ -112,7 +112,4 @@ def test_data
   @subscription_2 = Subscription.create!(title: "half saver", price: 15.99, status: "active", frequency: "bi-weekly", tea_units: 15, tea_unit_size: 16, customer: @customer_2, tea: @tea_2 )
   @subscription_3 = Subscription.create!(title: "montlhy saver", price: 5.99, status: "cancelled", frequency: "quarterly", tea_units: 90, tea_unit_size: 12, customer: @customer_1, tea: @tea_2 )
   @subscription_4 = Subscription.create!(title: "flat deal saver", price: 4.99, status: "cancelled", frequency: "annual", tea_units: 730, tea_unit_size: 16, customer: @customer_2, tea: @tea_1 )
-  @subscription_5 = Subscription.create!(title: "flat deal saver", price: 4.99, status: "cancelled", frequency: "annual", tea_units: 730, tea_unit_size: 16, customer: @customer_1 )
-  @subscription_6 = Subscription.create!(title: "flat deal saver", price: 4.99, status: "cancelled", frequency: "annual", tea_units: 730, tea_unit_size: 16, tea: @tea_1 )
-  @subscription_7 = Subscription.create!(title: "flat deal saver", price: 4.99, status: "cancelled", frequency: "annual", tea_units: 730, tea_unit_size: 16 )
 end

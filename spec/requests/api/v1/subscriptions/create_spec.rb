@@ -5,7 +5,7 @@ RSpec.describe 'Subscriptions' do
     describe "happy paths" do
       it "allows a customer to add a tea subscription" do 
         test_data
-        expect(@customer_2.teas.to_a).to eq([@tea_2, @tea_1])
+        expect(@customer_2.teas.to_a).to eq([@tea_1, @tea_2])
         @tea_3 = Tea.create!(title: "Green Tea", description: "soothing", temperature: 185, brew_time_seconds: 300 )
 
         subscription_valid_params = {
@@ -13,11 +13,12 @@ RSpec.describe 'Subscriptions' do
           price: 4.99,
           frequency: "monthly",
           tea_units: 30,
-          tea_unit_size: 20
+          tea_unit_size: 20,
+          tea_id: @tea_3.id
         }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
-        post "/api/v1/customers/#{@customer_2.id}/teas/#{@tea_3.id}", headers: headers, params: JSON.generate(subscription_valid_params)
+        post "/api/v1/customers/#{@customer_2.id}/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
         
         expect(response).to be_successful
 
@@ -78,7 +79,7 @@ RSpec.describe 'Subscriptions' do
 
       it "allows a customer to re-subscribe to a cancelled tea subscription" do 
         test_data
-        expect(@customer_2.teas.to_a).to eq([@tea_2, @tea_1])
+        expect(@customer_2.teas.to_a).to eq([@tea_1, @tea_2])
         @tea_3 = Tea.create!(title: "Green Tea", description: "soothing", temperature: 185, brew_time_seconds: 300 )
 
         subscription_valid_params = {
@@ -86,16 +87,17 @@ RSpec.describe 'Subscriptions' do
           price: 4.99,
           frequency: "monthly",
           tea_units: 30,
-          tea_unit_size: 20
+          tea_unit_size: 20,
+          tea_id: @tea_3.id
         }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
-        post "/api/v1/customers/#{@customer_2.id}/teas/#{@tea_3.id}", headers: headers, params: JSON.generate(subscription_valid_params)
+        post "/api/v1/customers/#{@customer_2.id}/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
         
         created_subscription = Subscription.last
         created_subscription.update!(status: "cancelled")
 
-        post "/api/v1/customers/#{@customer_2.id}/teas/#{@tea_3.id}", headers: headers, params: JSON.generate(subscription_valid_params)
+        post "/api/v1/customers/#{@customer_2.id}/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
 
         expect(response).to be_successful
 
@@ -117,7 +119,7 @@ RSpec.describe 'Subscriptions' do
     describe "sad paths" do
       it "Customer can only have one active subscription per tea" do 
         test_data
-        expect(@customer_2.teas.to_a).to eq([@tea_2, @tea_1])
+        expect(@customer_2.teas.to_a).to eq([@tea_1, @tea_2])
         @tea_3 = Tea.create!(title: "Green Tea", description: "soothing", temperature: 185, brew_time_seconds: 300 )
 
         subscription_valid_params = {
@@ -125,12 +127,13 @@ RSpec.describe 'Subscriptions' do
           price: 4.99,
           frequency: "monthly",
           tea_units: 30,
-          tea_unit_size: 20
+          tea_unit_size: 20,
+          tea_id: @tea_3.id
         }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
-        post "/api/v1/customers/#{@customer_2.id}/teas/#{@tea_3.id}", headers: headers, params: JSON.generate(subscription_valid_params)
-        post "/api/v1/customers/#{@customer_2.id}/teas/#{@tea_3.id}", headers: headers, params: JSON.generate(subscription_valid_params)
+        post "/api/v1/customers/#{@customer_2.id}/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
+        post "/api/v1/customers/#{@customer_2.id}/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
         
         expect(response).to_not be_successful
 
@@ -148,11 +151,12 @@ RSpec.describe 'Subscriptions' do
           price: 4.99,
           frequency: "monthly",
           tea_units: 30,
-          tea_unit_size: 20
+          tea_unit_size: 20,
+          tea_id: @tea_3.id
         }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
-        post "/api/v1/customers/0/teas/#{@tea_3.id}", headers: headers, params: JSON.generate(subscription_valid_params)
+        post "/api/v1/customers/0000/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
         
         expect(response).to_not be_successful
 
@@ -164,18 +168,19 @@ RSpec.describe 'Subscriptions' do
 
       it "Must be a valid Tea" do 
         test_data
-        expect(@customer_2.teas.to_a).to eq([@tea_2, @tea_1])
+        expect(@customer_2.teas.to_a).to eq([@tea_1, @tea_2])
 
         subscription_valid_params = {
           title: "test title",
           price: 4.99,
           frequency: "monthly",
           tea_units: 30,
-          tea_unit_size: 20
+          tea_unit_size: 20,
+          tea_id: 0000
         }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
-        post "/api/v1/customers/#{@customer_2.id}/teas/1", headers: headers, params: JSON.generate(subscription_valid_params)
+        post "/api/v1/customers/#{@customer_2.id}/subscriptions", headers: headers, params: JSON.generate(subscription_valid_params)
         
         expect(response).to_not be_successful
 
