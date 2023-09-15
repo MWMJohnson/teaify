@@ -27,6 +27,16 @@ class Api::V1::SubscriptionsController < ApplicationController
     end
   end
 
+  def cancel
+    @subscription = Subscription.find_by(id: params[:id])
+    if @subscription
+      @subscription.update(status: 'cancelled')
+      render json: { message: 'Subscription successfully cancelled' }, status: :ok
+    else
+      render json: { error: 'Subscription not found' }, status: :not_found
+    end
+  end
+
   # def update
   #   find_subscription
   #   if @subscription.status == "cancelled"
