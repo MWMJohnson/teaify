@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Recipes' do
+RSpec.describe 'Subscriptions' do
   describe 'POST api_v1_customer_subscriptions_path' do 
     describe "happy paths" do
       it "allows a customer to add a tea subscription" do 
@@ -75,7 +75,7 @@ RSpec.describe 'Recipes' do
         expect(attributes[:tea_id]).to be_a Integer
         expect(attributes[:tea_id]).to eq created_subscription.tea_id
       end
-      
+
       it "allows a customer to re-subscribe to a cancelled tea subscription" do 
         test_data
         expect(@customer_2.teas.to_a).to eq([@tea_1, @tea_2])
